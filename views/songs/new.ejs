@@ -8,6 +8,8 @@
 
     <div class="row">
         <!-- in form action put the route -->
+
+
         <form action="/songs/new" enctype="multipart/form-data" method="POST">
             <div>
                 <label>Title:</label>
@@ -22,9 +24,30 @@
                 <input type="file" name="music" class="form-control" />
                              
             </div>
+            <div>
+                <label>Lyrics:</label>
+                <input type="file" name="lyric" class="form-control" />
+                             
+            </div>
             <div class="mt-3">
                 <input type="submit" value="Upload" class="btn btn-primary btn-block" />
             </div>
         </form>
     </div>
+
+    <!-- <div class="row">
+    
+
+        
+        <form action="/songs/new/lyrics" enctype="multipart/form-data" method="POST">
+            <div>
+                <label>Lyrics:</label>
+                <input type="file" name="lyrics" class="form-control" />
+                             
+            </div>
+            <div class="mt-3">
+                <input type="submit" value="Upload" class="btn btn-primary btn-block" />
+            </div>
+        </form>
+    </div> -->
 </div>

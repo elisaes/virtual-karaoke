@@ -10,6 +10,10 @@ const SongsSchema = Schema({
     type: String,
     required: true,
   },
+  lyric:{
+    type: String,
+    required:true,
+  },
   artist: {
     type: String,
     required: true,

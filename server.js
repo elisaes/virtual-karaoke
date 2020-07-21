@@ -50,6 +50,7 @@ app.use(function (req, res, moveOn) {
 });
 
 app.use("/uploads", express.static("uploads"));
+app.use("/public", express.static("public"))
 
 app.use("/songs", require("./routes/songs.route"));
 app.use("/user", require("./routes/user.route"));

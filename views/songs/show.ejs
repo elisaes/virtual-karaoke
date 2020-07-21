@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="lyricer.min.css">
+<link rel="stylesheet" href="/public/lyricer.min.css">
 <div class="list-group">
 
     <audio id="myAudio" controls>
@@ -7,7 +7,11 @@
 
         Your browser does not support the audio element.
     </audio>
-
+    <div class="d-none hiddenLrc">
+        <%= lyrics %> 
+    </div>
     <div id="lyricer"></div>
-    <script type="text/javascript" src="lyricer.min.js"></script>
+    <script type="text/javascript" src="/public/lyricer.min.js"></script>
+    <script type="text/javascript" src="/public/lyrics.js"></script>
+
 </div>

@@ -9,17 +9,20 @@ const storage = multer.diskStorage({
   },
 });
 const fileFilter = (req, file, cb) => {
-  if (
-    file.mimetype === "audio/mpeg" ||
-    file.mimetype === "audio/wave" ||
-    file.mimetype === "audio/wav" ||
-    file.mimetype === "audio/mp3" ||
-    file.mimetype === "text/plain"
-  ) {
+  // if (
+  //   file.mimetype === "audio/mpeg" ||
+  //   file.mimetype === "audio/wave" ||
+  //   file.mimetype === "audio/wav" ||
+  //   file.mimetype === "audio/mp3"
+  // ) {
     cb(null, true);
-  } else {
-    cb(null, false);
-  }
+  // } else if (file.mimetype === "text/srt"){
+  //   console.log("is srt")
+  //   cb(null, false); 
+  // } else {
+  //   console.log(file)
+  //   console.log("none")
+  // }
 };
 module.exports = multer({
   storage: storage,

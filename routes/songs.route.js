@@ -1,4 +1,6 @@
 const Songs = require("../models/songs.model");
+const fs = require("fs");
+const Lyrics = require("../models/songs.model");
 const router = require("express").Router();
 //const musicController = require("../controller/musicController");
 const multer = require("../config/multer");
@@ -22,33 +24,48 @@ router.get("/show/:id", async (req, res) => {
   try {
     //Populate only includes the data from  cuisine collection and ownedBy collection
     let eachSong = await Songs.findById(req.params.id);
+
+    const lyrics = fs.readFileSync("./uploads/"+eachSong.lyric).toString();
+    console.log(lyrics)
     console.log(eachSong);
 
-    res.render("songs/show", { eachSong });
+    res.render("songs/show", { eachSong,lyrics });
   } catch (error) {
     console.log(error);
   }
 });
 
-router.post("/new", multer.single("music"), (req, res) => {
-  console.log("saving in db");
+router.post("/new", multer.fields([{ name: 'music', maxCount: 1 }, { name: 'lyric', maxCount: 1 }]), (req, res) => {
+  console.log("saving in db",req.files.lyric[0].data);
   try {
     const song = new Songs({
       title: req.body.title,
-      music: req.file.filename,
-      lyrics:req.file.filename,
+      music: req.files.music[0].filename,
+      lyric: req.files.lyric[0].filename,
       artist: req.body.artist,
+    
     });
-
-    //console.log("song",song)
-
     song.save().then((doc) => {
-      res.redirect("/songs/");
+      res.redirect("/songs");
     });
   } catch (err) {
     res.render(err);
   }
 });
+
+// router.post("/new/lyrics", (req, res) => {
+//   console.log("saving in db");
+//   try {
+//     const lyrics = new Lyrics({
+//       title: req.body.title,
+//     });
+//     lyrics.save().then((doc) => {
+//       res.redirect("/new");
+//     });
+//   } catch (err) {
+//     res.render(err);
+//   }
+// });
 
 // router.get("/test",(req,res)=>{
 
