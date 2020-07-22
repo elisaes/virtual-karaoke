@@ -2,16 +2,20 @@
 <div class="list-group">
 
     <audio id="myAudio" controls>
-        <source src="../../uploads/<%=eachSong.music%>" type="audio/ogg">
+        <source src="/uploads/<%=eachSong.music%>" type="audio/ogg">
 
 
         Your browser does not support the audio element.
     </audio>
     <div class="d-none hiddenLrc">
-        <%= lyrics %> 
+        <%= lyrics %>
     </div>
     <div id="lyricer"></div>
     <script type="text/javascript" src="/public/lyricer.min.js"></script>
     <script type="text/javascript" src="/public/lyrics.js"></script>
+
+    <div>
+        <a class="btn btn-primary" href="/user/single" role="button">Return to the list</a>
+    </div>
 
 </div>

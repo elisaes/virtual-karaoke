@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
+const methodOverride = require("method-override");
 const expressLayouts = require("express-ejs-layouts");
 const passport = require("./lib/passportConfig");
 const session = require("express-session");
@@ -14,6 +15,7 @@ app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 app.use(expressLayouts);
+app.use(methodOverride("_method"));
 require("dotenv").config();
 
 mongoose.connect(
@@ -24,8 +26,9 @@ mongoose.connect(
     useCreateIndex: true,
     useFindAndModify: false,
   },
-  () => {
-    console.log("MongoDB connected");
+  (err) => {
+    if (err) console.log("Error connecting to MDB", err);
+    else console.log("MongoDB connected");
   }
 );
 
@@ -50,7 +53,7 @@ app.use(function (req, res, moveOn) {
 });
 
 app.use("/uploads", express.static("uploads"));
-app.use("/public", express.static("public"))
+app.use("/public", express.static("public"));
 
 app.use("/songs", require("./routes/songs.route"));
 app.use("/user", require("./routes/user.route"));

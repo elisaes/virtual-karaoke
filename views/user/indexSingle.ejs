@@ -1,7 +1,7 @@
     <div>
         Chat with other loners like you
     </div>
-    
+
     <div class="list-group">
         <% users.forEach(user => { %>
 
@@ -11,8 +11,19 @@
 
         <% }) %>
     </div>
-
     <div>
         Choose the song that you want to sing
     </div>
+
+    <div class="list-group">
+        <% songs.forEach(song => { %>
+
+        <a href="/songs/show/<%=song._id%>" class="list-group-item list-group-item-action">
+            <%=song.title%> by <%=song.title%>
+        </a>
+
+        <% }) %>
+    </div>
+
+
     <!-- Put the card with the songs -->
