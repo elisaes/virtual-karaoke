@@ -1,6 +1,8 @@
 const Songs = require("../models/songs.model");
 const fs = require("fs");
 const Lyrics = require("../models/songs.model");
+const {checkAdminAuthenticated,checkAuthenticated} = require("../lib/auth")
+
 const router = require("express").Router();
 //const musicController = require("../controller/musicController");
 const multer = require("../config/multer");
@@ -9,8 +11,9 @@ const multer = require("../config/multer");
 //   res.render("./songs/list");
 // });
 
-router.get("/", async (req, res) => {
+router.get("/",checkAdminAuthenticated,async (req, res) => {
   try {
+    console.log("song /",req.user)
     let songs = await Songs.find();
     res.render("./songs/new", { songs });
     //console.log("songs from find", songs);
@@ -19,7 +22,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/show/:id", async (req, res) => {
+router.get("/show/:id",checkAuthenticated, async (req, res) => {
   //console.log("req.body show id",req.params.id)
   try {
     //Populate only includes the data from  cuisine collection and ownedBy collection
@@ -36,7 +39,7 @@ router.get("/show/:id", async (req, res) => {
 });
 
 router.post(
-  "/new",
+  "/new",checkAdminAuthenticated,
   multer.fields([
     { name: "music", maxCount: 1 },
     { name: "lyric", maxCount: 1 },
@@ -59,7 +62,7 @@ router.post(
   }
 );
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id",checkAdminAuthenticated, async (req, res) => {
   Songs.findById(req.params.id).then(
     song=>{
       fs.unlinkSync("./uploads/"+song.music)
@@ -72,64 +75,5 @@ router.delete("/:id", async (req, res) => {
   )
 });
 
-// router.post("/new/lyrics", (req, res) => {
-//   console.log("saving in db");
-//   try {
-//     const lyrics = new Lyrics({
-//       title: req.body.title,
-//     });
-//     lyrics.save().then((doc) => {
-//       res.redirect("/new");
-//     });
-//   } catch (err) {
-//     res.render(err);
-//   }
-// });
-
-// router.get("/test",(req,res)=>{
-
-//   Songs.find().then(
-//     docs=>{
-//       console.log(docs)
-//       const first = docs[0]
-//       const path  = "./upload/"+first.music
-//       console.log(path)
-//     }
-//   )
-
-// })
-
-// router.post("/new", async (req, res) => {
-//   console.log(req.body);
-//   try {
-//     const song = new Songs({
-//       title: req.body.title,
-//       music: req.file,
-//       artist: req.body.artist,
-//     });
-
-//     let savedSong = await song.save();
-//     //  console.log(savedSong);
-//     if (savedSong) {
-//       res.render("./songs/list");
-//     }
-//   } catch (err) {
-//     res.render(err);
-//   }
-// });
-
-// router.delete("/", async (req, res) => {
-//   try {
-//     const id = req.params._id;
-//     const result = await Music.remove(id);
-//     res.render("./songs/list");
-//   } catch (err) {
-//     res.render(err);
-//   }
-// });
-
-// router.get("/", musicController.getAllMusics);
-// router.post("/", upload.upload.single("music"), musicController.addNewMusic);
-// router.delete("/:musicId", musicController.deleteMusic);
 
 module.exports = router;

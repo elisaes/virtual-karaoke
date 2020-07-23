@@ -1,21 +1,39 @@
-<link rel="stylesheet" href="/public/lyricer.min.css">
-<div class="list-group">
-
-    <audio id="myAudio" controls>
-        <source src="/uploads/<%=eachSong.music%>" type="audio/ogg">
+<div class="container">
+    <link rel="stylesheet" href="/public/lyricer.min.css">
+    <div class="subtitle" id="songTitle"><%=eachSong.title%></div>
 
 
-        Your browser does not support the audio element.
-    </audio>
     <div class="d-none hiddenLrc">
         <%= lyrics %>
     </div>
-    <div id="lyricer"></div>
+
+
+    <div id="myVideo" class="myVideo">
+        <video id="video" controls>
+
+        </video>
+    </div>
+
+
+    <div class="myAudio">
+        <audio id="myAudio" controls>
+            <source src="/uploads/<%=eachSong.music%>" type="audio/ogg">
+            Your browser does not support the audio element.
+        </audio>
+        
+        <div id="lyricer"></div>
+
+    </div>
+
+    
     <script type="text/javascript" src="/public/lyricer.min.js"></script>
     <script type="text/javascript" src="/public/lyrics.js"></script>
+    <script type="text/javascript" src="/public/audio.js"></script>
+
 
     <div>
         <a class="btn btn-primary" href="/user/single" role="button">Return to the list</a>
     </div>
+
 
 </div>

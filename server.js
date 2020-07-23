@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const expressLayouts = require("express-ejs-layouts");
 const passport = require("./lib/passportConfig");
 const session = require("express-session");
+const MongoStore = require('connect-mongo')(session)
 const app = express();
 const flash = require("connect-flash");
 
@@ -37,6 +38,7 @@ app.use(
     secret: process.env.SECRET,
     saveUninitialized: true,
     resave: false,
+    store: new MongoStore({url:process.env.MONGODBURL})
     //cookie: { maxAge: 360000 }
   })
 );

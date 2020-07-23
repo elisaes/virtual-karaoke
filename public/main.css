@@ -1,0 +1,77 @@
+body {
+    background-color: #FFEFD5;
+    background-image: url("/public/img/bird.png");
+    background-size: 100px;
+    background-repeat: onset;
+    background-position: right;
+
+}
+
+.title {
+    font-family: 'Indie Flower', cursive;
+    font-size: 60px;
+    font-weight: bold;
+    color: #663399;
+    text-align: center;
+    padding: 50px;
+
+}
+
+.subtitle {
+    font-family: 'Indie Flower', cursive;
+    color: #663399;
+    text-align: center;
+    padding: 30px;
+    font-size: 30px;
+}
+
+.container {
+
+    text-align: center;
+    font-family: 'Indie Flower', cursive;
+
+}
+
+.insideContainer {
+    display: block;
+    width: 400px;
+    font-size: 26px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 25px;
+
+}
+
+.link {
+    border: solid rgba(255, 0, 0, 0.4) 1px;
+    background-color: rgba(255, 0, 0, 0.4);
+    background-image: url("/public/img/notes.png");
+    background-size: 100px;
+    background-repeat: no-repeat;
+}
+
+.myVideo {
+    width: 500px;
+    height: 400px;
+    margin: auto;
+    display: block
+}
+
+.myAudio {
+    display: block;
+    margin: auto;
+    padding-top: 20px;
+}
+.guest{
+    font-size: 20px;
+    padding-top: 0px;
+
+}
+
+
+#songTitle {
+    padding: 0;
+    border: 0px;
+    line-height: 0px
+
+}

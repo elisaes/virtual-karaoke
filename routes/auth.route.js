@@ -52,8 +52,8 @@ router.post(
     failureFlash: "Invalid email/Password, Please enter correct details"
   }),
   function(req, res) {
-    console.log("kakakak",req.body);
-    if (req.body.isAdmin === "true"){
+    console.log("kakakak",req.user);
+    if (req.user.isAdmin === true){
       res.redirect("/songs")
     } else {
     res.redirect("/user");

@@ -1,25 +1,31 @@
 <form action="/auth/signup" method="post">
-    <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" class="form-control" name="name" aria-describedby="nameHelp">
-    </div>
-    <div class="form-group">
-        <label for="artistName">Artist Name:</label>
-        <input type="text" class="form-control" name="artistName" aria-describedby="artistNameHelp">
-    </div>
 
-    <div class="form-group">
-        <label for="email">Email address:</label>
-        <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
-        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" class="form-control" name="password">
-    </div>
+    <div class="container">
 
-    <div>
-        <button type="submit" value="signup" class="btn btn-primary">Submit</button>
+
+        <div class="form-group insideContainer">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" name="name" aria-describedby="nameHelp">
+        </div>
+        <div class="form-group insideContainer">
+            <label for="artistName">Artist Name:</label>
+            <input type="text" class="form-control" name="artistName" aria-describedby="artistNameHelp">
+        </div>
+
+        <div class="form-group insideContainer">
+            <label for="email">Email address:</label>
+            <input type="email" class="form-control" name="email" aria-describedby="emailHelp">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group insideContainer">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" name="password">
+        </div>
+
+        <div>
+            <button type="submit" value="signup" class="btn btn-primary">Submit</button>
+
+        </div>
 
     </div>
 </form>

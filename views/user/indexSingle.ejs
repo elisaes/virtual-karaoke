@@ -1,28 +1,32 @@
-    <div>
+    <div class="subtitle">
         Chat with other loners like you
     </div>
 
-    <div class="list-group">
-        <% users.forEach(user => { %>
+    <div class="list-group container">
+        <div class="insideContainer">
+            <% users.forEach(user => { %>
 
-        <a href="#" class="list-group-item list-group-item-action">
-            <%=user.name%>
-        </a>
+            <a href="#" class="list-group-item">
+                <%=user.name%>
+            </a>
 
-        <% }) %>
+            <% }) %>
+        </div>
     </div>
-    <div>
+    <div class="subtitle">
         Choose the song that you want to sing
     </div>
 
-    <div class="list-group">
-        <% songs.forEach(song => { %>
+    <div class="list-group container">
+        <div class="insideContainer">
+            <% songs.forEach(song => { %>
 
-        <a href="/songs/show/<%=song._id%>" class="list-group-item list-group-item-action">
-            <%=song.title%> by <%=song.title%>
-        </a>
+            <a href="/songs/show/<%=song._id%>" class="list-group-item">
+                <%=song.title%> by <%=song.title%>
+            </a>
 
-        <% }) %>
+            <% }) %>
+        </div>
     </div>
 
 
