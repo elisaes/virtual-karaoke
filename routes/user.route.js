@@ -32,4 +32,6 @@ router.get("/couple",checkAuthenticated, async (req, res) => {
   }
 });
 
+
+
 module.exports = router;
