@@ -27,39 +27,47 @@ io.sockets.on("error", (error) => console.log(error));
 
 let broadcaster;
 io.sockets.on("connection", (socket) => {
-  socket.on("broadcaster", () => {
-    console.log("broadcaster")
+  socket.on("broadcaster", (payload) => {
+    console.log("suposely user", payload);
+    console.log("a user " + socket.id + " connected");
+    // console.log("broadcaster");
     broadcaster = socket.id;
-    socket.broadcast.emit("broadcaster");
+    socket.broadcast.emit("broadcaster", {
+      userName: payload.userName,
+      songId: payload.songId,
+    });
   });
-  socket.on("watcher", () => {
-    console.log("watcher")
 
-    socket.to(broadcaster).emit("watcher", {id:socket.id});
+  socket.on("watcher", () => {
+    console.log("watcher");
+
+    socket.to(broadcaster).emit("watcher", { id: socket.id });
   });
   socket.on("disconnect", () => {
-    console.log("disconnect")
+    // console.log("disconnect");
 
     socket.to(broadcaster).emit("disconnectPeer", socket.id);
   });
 
   socket.on("offer", (payload) => {
-    console.log("offer",payload.id)
+    //  console.log("offer", payload.id);
 
-    socket.to(payload.id).emit("offer", {id:socket.id, msg:payload.msg});
+    socket.to(payload.id).emit("offer", { id: socket.id, msg: payload.msg });
   });
 
-  socket.on("answer", payload => {
-    console.log("answer")
+  socket.on("answer", (payload) => {
+    //console.log("answer");
 
-    socket.to(payload.id).emit("answer", {id:socket.id, msg:payload.msg});
+    socket.to(payload.id).emit("answer", { id: socket.id, msg: payload.msg });
 
-    console.log("err")
+    console.log("err");
   });
-  socket.on("candidate", payload => {
-    console.log("candidate")
+  socket.on("candidate", (payload) => {
+    //  console.log("candidate");
 
-    socket.to(payload.id).emit("candidate", {id:socket.id, msg:payload.msg});
+    socket
+      .to(payload.id)
+      .emit("candidate", { id: socket.id, msg: payload.msg });
   });
 });
 //-----------------------------

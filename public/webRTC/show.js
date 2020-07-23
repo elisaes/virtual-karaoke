@@ -8,7 +8,7 @@ const config = {
 };
 
 const socket = io.connect(window.location.origin);
-const vider = document.querySelector("#video");
+const video = document.querySelector("#video");
 
 const constraints = {
   video: { facingMode: "user" },
@@ -19,21 +19,24 @@ navigator.mediaDevices
   .getUserMedia(constraints)
   .then((stream) => {
     video.srcObject = stream;
-    socket.emit("broadcaster");
+    socket.emit("broadcaster", {
+      userName: document.querySelector(".username").value,
+      songId: document.querySelector(".songId").value,
+    });
   })
   .catch((error) => console.log(error));
 
-socket.on("watcher", resPayload => {
+socket.on("watcher", (resPayload) => {
   const peerConnection = new RTCPeerConnection(config);
   peerConnections[resPayload.id] = peerConnection;
   let stream = video.srcObject;
   stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
   peerConnection.onicecandidate = (event) => {
     if (event.candidate) {
-        const payload = {
-            id:resPayload.id,
-            msg: event.candidate
-        }
+      const payload = {
+        id: resPayload.id,
+        msg: event.candidate,
+      };
       socket.emit("candidate", payload);
     }
   };
@@ -42,18 +45,17 @@ socket.on("watcher", resPayload => {
     .createOffer()
     .then((sdp) => peerConnection.setLocalDescription(sdp))
     .then(() => {
-        const payload = {
-            id:resPayload.id,
-            msg:peerConnection.localDescription
-        }
-        console.log(payload)
-      socket.emit("offer",payload);
+      const payload = {
+        id: resPayload.id,
+        msg: peerConnection.localDescription,
+      };
+      console.log(payload);
+      socket.emit("offer", payload);
     });
-
 });
 
 socket.on("answer", (payload) => {
-    console.log(payload)
+  console.log(payload);
   peerConnections[payload.id].setRemoteDescription(payload.msg);
 });
 

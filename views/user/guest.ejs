@@ -1,0 +1,15 @@
+<div class="title container">
+    Choose the song that you want to sing
+</div>
+
+<div class="list-group container">
+    <div class="insideContainer">
+        <% songs.forEach(song => { %>
+
+        <a href="/songs/guest/<%=song._id%>" class="linkList">
+            <%=song.title%> by <%=song.artist%>
+        </a>
+
+        <% }) %>
+    </div>
+</div>

@@ -13,7 +13,7 @@ const multer = require("../config/multer");
 
 router.get("/", checkAdminAuthenticated, async (req, res) => {
   try {
-    console.log("song /", req.user);
+    // console.log("song /", req.user);
     let songs = await Songs.find();
     res.render("./songs/new", { songs });
     //console.log("songs from find", songs);
@@ -25,23 +25,37 @@ router.get("/", checkAdminAuthenticated, async (req, res) => {
 router.get("/show/:id", checkAuthenticated, async (req, res) => {
   //console.log("req.body show id",req.params.id)
   try {
-    //Populate only includes the data from  cuisine collection and ownedBy collection
     let eachSong = await Songs.findById(req.params.id);
+    //  console.log("eachSong", eachSong);
 
     const lyrics = fs.readFileSync("./uploads/" + eachSong.lyric).toString();
     //  console.log(lyrics);
     // console.log(eachSong);
 
-    res.render("songs/show", { eachSong, lyrics });
+    res.render("songs/show", { eachSong, lyrics, username: req.user.name });
+  } catch (error) {
+    console.log(error);
+  }
+});
+router.get("/guest/:id", checkAuthenticated, async (req, res) => {
+  //console.log("req.body show id",req.params.id)
+  try {
+    let eachSong = await Songs.findById(req.params.id);
+    //  console.log("eachSong", eachSong);
+
+    const lyrics = fs.readFileSync("./uploads/" + eachSong.lyric).toString();
+    //  console.log(lyrics);
+    // console.log(eachSong);
+
+    res.render("songs/show", { eachSong, lyrics, username: req.user.name });
   } catch (error) {
     console.log(error);
   }
 });
 
 router.get("/watch/:id", checkAuthenticated, async (req, res) => {
-  console.log("in watch req.body show id",req.params.id)
+  // console.log("in watch req.body show id", req.params.id);
   try {
-    //Populate only includes the data from  cuisine collection and ownedBy collection
     let eachSong = await Songs.findById(req.params.id);
 
     const lyrics = fs.readFileSync("./uploads/" + eachSong.lyric).toString();

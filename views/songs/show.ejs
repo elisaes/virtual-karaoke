@@ -1,8 +1,10 @@
 <div class="container">
     <link rel="stylesheet" href="/public/lyricer.min.css">
-    <div class="subtitle" id="songTitle"><%=eachSong.title%></div>
 
+    <input class="d-none username" value="<%= username %>">
+    <input class="d-none songId" value="<%= eachSong.id %>">
 
+    </input>
     <div class="d-none hiddenLrc">
         <%= lyrics %>
     </div>
@@ -10,24 +12,24 @@
 
     <div id="myVideo" class="myVideo">
         <video id="video" controls>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-            <script src="/public/webRTC/show.js"></script>
 
         </video>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="/public/webRTC/show.js"></script>
 
     <div class="myAudio">
         <audio id="myAudio" controls>
             <source src="/uploads/<%=eachSong.music%>" type="audio/ogg">
             Your browser does not support the audio element.
         </audio>
-        
+
         <div id="lyricer"></div>
 
     </div>
 
-    
+
     <script type="text/javascript" src="/public/lyricer.min.js"></script>
     <script type="text/javascript" src="/public/lyrics.js"></script>
     <!-- <script type="text/javascript" src="/public/audio.js"></script> -->

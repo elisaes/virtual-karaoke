@@ -1,0 +1,16 @@
+<div class="title">
+  Choose the song that you want to sing.
+</div>
+
+<div class="list-group container">
+  <div class="insideContainer">
+    <% songs.forEach(song => { %>
+
+    <a href="/songs/show/<%=song._id%>" class=" linkList">
+      <%=song.title%> by <%=song.artist%>
+    </a>
+
+    <% }) %>
+  </div>
+
+  <!-- Put the card with the songs -->

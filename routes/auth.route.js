@@ -28,7 +28,7 @@ router.post("/signup", async (req, res) => {
     });
     let savedUser = await user.save();
     if (savedUser) {
-      console.log("saved", savedUser);
+     // console.log("saved", savedUser);
       res.redirect("/user");
     }
   } catch (error) {
@@ -52,7 +52,7 @@ router.post(
     failureFlash: "Invalid email/Password, Please enter correct details"
   }),
   function(req, res) {
-    console.log("kakakak",req.user);
+    //console.log("kakakak",req.user);
     if (req.user.isAdmin === true){
       res.redirect("/songs")
     } else {
