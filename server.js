@@ -26,18 +26,26 @@ const io = require("socket.io")(http);
 io.sockets.on("error", (error) => console.log(error));
 
 let broadcaster;
+let broadcasterInfo = {userName:null, songId:null};
+
 io.sockets.on("connection", (socket) => {
   socket.on("broadcaster", (payload) => {
     console.log("suposely user", payload);
     console.log("a user " + socket.id + " connected");
     // console.log("broadcaster");
+    broadcasterInfo.userName = payload.userName;
+    broadcasterInfo.songId = payload.songId;
+
     broadcaster = socket.id;
-    socket.broadcast.emit("broadcaster", {
-      userName: payload.userName,
-      songId: payload.songId,
-    });
+
+    socket.broadcast.emit("broadcaster", broadcasterInfo);
   });
 
+  socket.on("getBroadcasterInfo", () => {
+
+    socket
+      .emit("getBroadcasterInfoReply", broadcasterInfo);
+  });
   socket.on("watcher", () => {
     console.log("watcher");
 
@@ -45,6 +53,12 @@ io.sockets.on("connection", (socket) => {
   });
   socket.on("disconnect", () => {
     // console.log("disconnect");
+
+    if (broadcaster === socket.id){
+      broadcaster = null;
+      broadcasterInfo = {userName:null, songId:null};
+      socket.broadcast.emit("getBroadcasterInfoReply",broadcasterInfo)
+    }
 
     socket.to(broadcaster).emit("disconnectPeer", socket.id);
   });
