@@ -6,7 +6,7 @@
     <div class="insideContainer">
 
 
-        <a href="/songs/show/<%=song._id%>" class="list-group-item  songList">
+        <a href="/songs/show/<%=song._id%>" class="linkList">
             <div><%= song.title%> by <%= song.artist%></div>
         </a>
         <form action="/songs/<%=song._id%>?_method=DELETE" enctype="multipart/form-data" method="POST">
