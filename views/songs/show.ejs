@@ -1,10 +1,8 @@
 <div class="container">
     <link rel="stylesheet" href="/public/lyricer.min.css">
 
-    <input class="d-none username" value="<%= username %>">
     <input class="d-none songId" value="<%= eachSong.id %>">
 
-    </input>
     <div class="d-none hiddenLrc">
         <%= lyrics %>
     </div>
@@ -21,7 +19,7 @@
 
     <div class="myAudio">
         <audio id="myAudio" controls>
-            <source src="/uploads/<%=eachSong.music%>" type="audio/ogg">
+            <source src="/songs/song/<%= eachSong.id %>" type="audio/ogg">
             Your browser does not support the audio element.
         </audio>
 

@@ -1,0 +1,9 @@
+.title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 40px;;
+}
+
+.button {
+  margin: 20px;
+  display: inline-block;
+}

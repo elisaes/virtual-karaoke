@@ -8,10 +8,12 @@ const SongsSchema = Schema({
   },
   music: {
     type: String,
+    data:Buffer,
     required: true,
   },
   lyric:{
     type: String,
+    data:Buffer,
     required:true,
   },
   artist: {

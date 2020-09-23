@@ -23,31 +23,45 @@ router.get("/", checkAdminAuthenticated, async (req, res) => {
 });
 
 router.get("/show/:id", checkAuthenticated, async (req, res) => {
-  //console.log("req.body show id",req.params.id)
+  console.log("req.body show id",req.params.id)
   try {
     let eachSong = await Songs.findById(req.params.id);
-    //  console.log("eachSong", eachSong);
+      // console.log("eachSong", eachSong);
 
-    const lyrics = fs.readFileSync("./uploads/" + eachSong.lyric).toString();
-    //  console.log(lyrics);
-    // console.log(eachSong);
-
+    const lyrics = eachSong.lyric;
+    console.log(lyrics)
     res.render("songs/show", { eachSong, lyrics, username: req.user.name });
   } catch (error) {
     console.log(error);
   }
 });
-router.get("/guest/:id", checkAuthenticated, async (req, res) => {
+
+router.get("/song/:id", checkAuthenticated, async (req, res) => {
+  console.log("req.body show id",req.params.id)
+  try {
+    let eachSong = await Songs.findById(req.params.id);
+    const songFile = Buffer.from(eachSong.music,"binary")
+    console.log("eachSong", songFile);
+   
+      res.writeHead(200,{"Content-Type":"audio/mpeg","Content-Length":songFile.byteLength});
+    res.end(   songFile   )
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/guest/:id", async (req, res) => {
   //console.log("req.body show id",req.params.id)
   try {
     let eachSong = await Songs.findById(req.params.id);
     //  console.log("eachSong", eachSong);
 
-    const lyrics = fs.readFileSync("./uploads/" + eachSong.lyric).toString();
+    const lyrics = eachSong.lyric;
     //  console.log(lyrics);
     // console.log(eachSong);
 
-    res.render("songs/show", { eachSong, lyrics, username: req.user.name });
+
+    res.render("songs/show", { eachSong, lyrics });
   } catch (error) {
     console.log(error);
   }
@@ -76,12 +90,11 @@ router.post(
     { name: "lyric", maxCount: 1 },
   ]),
   (req, res) => {
-    // console.log("saving in db", req.files.lyric[0].data);
     try {
       const song = new Songs({
         title: req.body.title,
-        music: req.files.music[0].filename,
-        lyric: req.files.lyric[0].filename,
+        music: fs.readFileSync(`./uploads/${req.files.music[0].filename}`,{encoding:"binary"}),
+        lyric: fs.readFileSync(`./uploads/${req.files.lyric[0].filename}`),
         artist: req.body.artist,
       });
       song.save().then((doc) => {
